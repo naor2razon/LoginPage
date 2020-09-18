@@ -63,19 +63,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSnackBar() {
+        String name = edtTextName.getText().toString();
+        String email = edtTextEmail.getText().toString();
+        String country = spinnerCountry.getSelectedItem().toString();
+        String gender = "";
+        String snackText =  "Name:"+name+"\n"+
+                            "Email:"+email+"\n"+
+                            "Gender:"+gender+"\n"+
+                            "Country:"+country;
+
         Log.d(TAG,"SHOWSNACKBAR:started");
         txtWarnRePass.setVisibility(View.GONE);
         txtWarnPass.setVisibility(View.GONE);
         txtWarnEmail.setVisibility(View.GONE);
         txtWarnName.setVisibility(View.GONE);
 
-        Snackbar.make(parent,"User Registered",Snackbar.LENGTH_INDEFINITE).setAction("Dissmis", new View.OnClickListener() {
+        switch (rgGender.getCheckedRadioButtonId()){
+            case R.id.rbMale:
+                gender = "Male";
+                break;
+            case R.id.rbFemale:
+                gender = "Female";
+                break;
+            case R.id.rbOther:
+                gender = "Other";
+                break;
+            default:
+                gender = "Uknown";
+                break;
+        }
+
+        Snackbar.make(parent,snackText ,Snackbar.LENGTH_INDEFINITE).setAction("Dissmis", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                edtTextEmail.setText("");
+                edtTextName.setText("");
+                edtTextPass.setText("");
+                edtTextRePass.setText("");
             }
         }).show();
-
     }
 
     private boolean validateData() {
